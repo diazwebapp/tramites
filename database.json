@@ -1,0 +1,80 @@
+{
+  "ncontratoBase": 700000002315,
+  "nreciboBase": 700000007315,
+  "contratos": [
+    {
+      "numero_contrato": 700000002314,
+      "numero_recibo": 700000007314,
+      "personDNI": "v-23413903",
+      "placaVehiculo": "A03BJ2G",
+      "Desde": "27/07/2025",
+      "Hasta": "27/07/2026"
+    },
+    {
+      "numero_contrato": 700000002315,
+      "numero_recibo": 700000007315,
+      "personDNI": "23413903",
+      "placaVehiculo": "AA8P73W",
+      "Desde": "27/07/2025",
+      "Hasta": "27/07/2026"
+    }
+  ],
+  "personas": [
+    {
+      "contractorNombre": "EDISON J. REYES CERRANO",
+      "contractorDNI": "v-17.284.185",
+      "contractorDreccion": "N/A",
+      "contractorTelefono": "N/A"
+    },
+    {
+      "contractorNombre": "Erick Diaz Estrada",
+      "contractorDNI": "v-23413903",
+      "contractorDreccion": "bicentenario",
+      "contractorTelefono": "04144013973"
+    }
+  ],
+  "vehiculos": [
+    {
+      "marca": "KEEWAY",
+      "modelo": "HORSE II 150",
+      "version": "S/N",
+      "transmision": "SINCRONICO",
+      "anio": "2013",
+      "color": "ROJO",
+      "tipo": "PASEO",
+      "uso": "PRTICULAR",
+      "placa": "AA8P73W",
+      "carroceria": "8123P1K19DM011592",
+      "motor": "KW162FMJ2687021",
+      "puestos_tonelaje": "2 / 0 TN"
+    },
+    {
+      "marca": "KEEWAY",
+      "modelo": "horse II 150",
+      "version": "N/A",
+      "transmision": "automatico",
+      "anio": "2",
+      "color": "AMARILLO",
+      "tipo": "paseo",
+      "uso": "particular",
+      "placa": "AA8P73",
+      "carroceria": "sfsfsfsfsfsf545456",
+      "motor": "KW162FMJ*2687021*",
+      "puestos_tonelaje": "6/p"
+    },
+    {
+      "marca": "KEEWAY",
+      "modelo": "horse II 150",
+      "version": "N/A",
+      "transmision": "automatico",
+      "anio": "634",
+      "color": "AMARILLO",
+      "tipo": "paseo",
+      "uso": "particular",
+      "placa": "A03BJ2G",
+      "carroceria": "sfsfsfsfsfsf545456",
+      "motor": "KW162FMJ*2687021*",
+      "puestos_tonelaje": "6/p"
+    }
+  ]
+}

@@ -1,0 +1,525 @@
+---
+import type { ContratoData, PersonData, VehicleData } from '../types'
+
+type Props ={
+    contrato: ContratoData | undefined
+    vehiculo: VehicleData | undefined
+    persona: PersonData | undefined
+}
+let {contrato,vehiculo,persona} = Astro.props
+!contrato ? contrato = {
+    "numero_contrato": 0,
+    "numero_recibo": 0,
+    "personDNI": "",
+    "placaVehiculo": "",
+    "Desde": "",
+    "Hasta": ""
+} : contrato
+!vehiculo ? vehiculo = {
+    "marca": "",
+      "modelo": "",
+      "version": "",
+      "transmision": "",
+      "anio": "",
+      "color": "",
+      "tipo": "",
+      "uso": "",
+      "placa": "",
+      "carroceria": "",
+      "motor": "",
+      "puestos_tonelaje": ""
+} : vehiculo
+!persona ? persona = {
+    "contractorNombre": "",
+    "contractorDNI": "",
+    "contractorDreccion": "",
+    "contractorTelefono": ""
+} : persona
+---
+<div id="plantilla" >
+    
+    <header>
+        <div class="logo">
+            <img width="200px" src="/logo-plantilla.png" alt="logo">
+        </div>
+        <div style="width: 100%;" >
+            <p style="text-align: left;display: block;" >
+                <b>Sucursal:</b> PRINCIPAL
+            </p>
+        </div>
+        <div class="qr" id="qr-1">
+            
+        </div>
+    </header>
+    <div style="display: flex;gap: 20px;">
+        <div style="width: 210px;" >
+            <b>(*) Al Mediodia Hora Oficial. </b>
+        </div>
+        <div style="text-align: center; width: 100%;" >
+            <b>EMISION</b>
+            <br>
+            <b>CUADRO RECIBO DE CONTRATO DE AUTOMOVIL</b>
+            <br>
+            <b>VIGENCIA</b>
+        </div>
+    </div>
+
+    <div style="width: 210mm; margin:auto;">
+        <table style="width:100%;" >
+            <tr>
+                <td>
+                    <p><b>Fecha de Emisión:</b> <span contenteditable="true" class="fechaEmision" >{contrato.Desde}</span></p>
+                </td>
+                <td>
+                    <p><b>* Desde:</b> </p>
+                </td>
+                <td>
+                    <p><b>* Hasta:</b> </p>
+                </td>
+                <td>
+                    <b>Contrato nº:</b>
+                </td>
+                <td style="text-align: right;" >
+                    <span contenteditable="true" class="contratoN" >{contrato.numero_contrato}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p><b>Fecha de Suscripción:</b> <span contenteditable="true" class="fechaEmision">{contrato.Desde}</span></p>
+                </td>
+                <td>
+                    <span contenteditable="true" class="fechaEmision">{contrato.Desde}</span>
+                </td>
+                <td>
+                    <span contenteditable="true" class="fechaVencimiento" >{contrato.Hasta}</span>
+                </td>
+                <td>
+                    <b>Recibo nº:</b>
+                </td>
+                <td style="text-align: right;">
+                    <span contenteditable="true">{contrato.numero_recibo}</span>
+                </td>
+            </tr>
+        </table>
+        <!--Datos del tomador-->
+        <div class="data-container">
+            <div class="title"><b>DATOS DEL TOMADOR</b></div>
+            
+                <table style="width:100%;" >
+                    <tr>
+                        <td>
+                            <label for="cedula-1">
+                                <b>Cédula o Rif nº:</b>
+                                <span contenteditable="true" data-placeholder="Introduce la cédula o RIF" class="tomadorDNI">{persona.contractorDNI}</span>
+                            </label>
+                        </td>
+                        <td>
+                            <label for="contractor">
+                                <b>Nombres:</b>
+                                <span contenteditable="true" data-placeholder="Introduce los nombres del tomador" class="tomadorNombres" >{persona.contractorNombre}</span>
+                            </label>
+                        </td> 
+                        
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="dirección">
+                                <b>Dirección:</b>
+                                <span contenteditable="true" data-placeholder="Introduce la dirección" >{persona.contractorDreccion}</span>
+                        </td>
+                        <td>
+                            <label for="phone">
+                                <b>Teléfono:</b>
+                                <span contenteditable="true" data-placeholder="Introduce el teléfono" >{persona.contractorTelefono}</span>
+                        </td>
+                    </tr>
+                </table>            
+        </div>
+        <!--Datos del contratante-->
+        <div class="data-container">
+            <div class="title"><b>DATOS DEL CONTRATANTE</b></div>
+            
+                <table style="width:100%;" >
+                    <tr>
+                        <td>
+                            <label for="cedula-1">
+                                <b>Cédula o Rif nº:</b>
+                                <span contenteditable="true" data-placeholder="Introduce la cédula o RIF" class="contenteditable">{persona.contractorDNI}</span>
+                            </label>
+                        </td>
+                        <td>
+                            <label for="contractor">
+                                <b>Nombres:</b>
+                                <span contenteditable="true" data-placeholder="Introduce los nombres del contratante" >{persona.contractorNombre}</span>
+                            </label>
+                        </td> 
+                        
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="dirección">
+                                <b>Dirección:</b>
+                                <span contenteditable="true" data-placeholder="Introduce la dirección" >{persona.contractorDreccion}</span>
+                        </td>
+                        <td>
+                            <label for="phone">
+                                <b>Teléfono:</b>
+                                <span contenteditable="true" data-placeholder="Introduce el teléfono" >{persona.contractorTelefono}</span>
+                        </td>
+                    </tr>
+                </table>            
+        </div>
+        <!--Datos del vehiculo-->   
+        <div class="data-container">
+            <div class="title"><b>DATOS DEL VEHICULO</b></div>
+            <table style="width: 100%;" >
+                <tr>
+                    <td><strong>MARCA:</strong></td>
+                    <td><span contenteditable="true" data-placeholder="Marca del vehículo">{vehiculo.marca}</span></td>
+                    <td><strong>AÑO:</strong></td>
+                    <td><span contenteditable="true" data-placeholder="Año de fabricación">{vehiculo.anio}</span></td>
+                    <td><strong>PLACA:</strong></td>
+                    <td><span contenteditable="true" data-placeholder="Número de placa" class="placa" >{vehiculo.placa}</span></td>
+                </tr>
+                <tr>
+                    <td><strong>MODELO:</strong></td>
+                    <td><span contenteditable="true" data-placeholder="Modelo del vehículo">{vehiculo.modelo}</span></td>
+                    <td><strong>COLOR:</strong></td>
+                    <td><span contenteditable="true" data-placeholder="Color del vehículo">{vehiculo.color}</span></td>
+                    <td><strong>CARROCERIA:</strong></td>
+                    <td><span contenteditable="true" data-placeholder="Número de carrocería">{vehiculo.carroceria}</span></td>
+                </tr>
+                <tr>
+                    <td><strong>VERSION:</strong></td>
+                    <td><span contenteditable="true" data-placeholder="Versión">{vehiculo.version}</span></td>
+                    <td><strong>TIPO:</strong></td>
+                    <td><span contenteditable="true" data-placeholder="Tipo de vehículo">{vehiculo.tipo}</span></td>
+                    <td><strong>MOTOR:</strong></td>
+                    <td><span contenteditable="true" data-placeholder="Tipo de motor">{vehiculo.motor}</span></td>
+                </tr>
+                <tr>
+                    <td><strong>TRANSMISION:</strong></td>
+                    <td><span contenteditable="true" data-placeholder="Tipo de transmisión">{vehiculo.transmision}</span></td>
+                    <td><strong>USO:</strong></td>
+                    <td><span contenteditable="true" data-placeholder="Uso del vehículo">{vehiculo.uso}</span></td>
+                    <td><strong>PUESTOS Y /O TONELAJE:</strong></td>
+                    <td>
+                        <span contenteditable="true" data-placeholder="Puestos">{vehiculo.puestos_tonelaje}</span>
+                    </td>
+                </tr>
+            </table>
+            <br>
+        </div>
+        <!--Datos de COBERTURAS-->
+        <div class="data-container">
+            <div class="title"><b>COBERTURAS</b></div>
+            <table style="width: 100%;" >
+                <thead>
+                    <tr>
+                        <th style="text-align: left;"></th>
+                        <th style="text-align: left;">LIMITE MAXIMO</th>
+                        <th style="text-align: left;">DEDUCIBLE</th>
+                        <th style="text-align: left;">VIGENCIA</th>
+                        <th style="text-align: left;">COSTO A COBRAR</th>
+                    </tr>
+                </thead>
+                <tr>
+                <td><b>R.C.V. (cosas)</b></td>
+                <td><span contenteditable="true">250</span></td>
+                <td></td>
+                <td><span contenteditable="true" class="fechaEmision-vencimiento">{contrato.Desde} {contrato.Hasta}</span></td>
+                <td><span contenteditable="true">1,830.00</span></td>
+                </tr>
+                <tr>
+                <td><b>R.C.V. (personas)</b></td>
+                <td><span contenteditable="true">350</span></td>
+                <td></td>
+                <td><span contenteditable="true" class="fechaEmision-vencimiento">{contrato.Desde} {contrato.Hasta}</span></td>
+                <td></td>
+                </tr>
+                <tr>
+                <td><b>A.P.O.V. (Muerte Accidental)</b></td>
+                <td><span contenteditable="true">500</span></td>
+                <td></td>
+                <td><span contenteditable="true" class="fechaEmision-vencimiento">{contrato.Desde} {contrato.Hasta}</span></td>
+                <td></td>
+                </tr>
+                <tr>
+                <td><b>A.P.O.V. (Incapacidad Total)</b></td>
+                <td><span contenteditable="true">500</span></td>
+                <td></td>
+                <td><span contenteditable="true" class="fechaEmision-vencimiento">{contrato.Desde} {contrato.Hasta}</span></td>
+                <td></td>
+                </tr>
+                <tr>
+                <td><b>A.P.O.V. (Gastos Medicos)</b></td>
+                <td><span contenteditable="true">300</span></td>
+                <td></td>
+                <td><span contenteditable="true" class="fechaEmision-vencimiento">{contrato.Desde} {contrato.Hasta}</span></td>
+                <td></td>
+                </tr>
+                <tr>
+                <td><b>Exceso de Limites</b></td>
+                <td><span contenteditable="true">6,000</span></td>
+                <td></td>
+                <td><span contenteditable="true" class="fechaEmision-vencimiento">{contrato.Desde} {contrato.Hasta}</span></td>
+                <td></td>
+                </tr>
+                <tr>
+                <td><b>Asistencia Juridica</b></td>
+                <td><span contenteditable="true">3,000</span></td>
+                <td></td>
+                <td><span contenteditable="true" class="fechaEmision-vencimiento">{contrato.Desde} {contrato.Hasta}</span></td>
+                <td></td>
+                </tr>
+                <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                </tr>
+                
+            </table>
+        </div>
+        <div class="data-container"></div>
+        <br>
+        <hr style="border-style: dashed;" >
+        <br>
+        <div class="card-side">
+            <div class="card" id="card">
+                <div class="card-header">
+                    <div class="logo"><img height="42px" width="42px" src="/logo-plantilla.png" alt="logo"></div>
+                    <div class="header-text">
+                        R.C.V.<br>
+                        <b>Contrato Nº:</b><span contenteditable="true" style="color: red;">{contrato.numero_contrato}</span>
+                    </div>
+                </div>
+                
+                <table style="width: 100%;" >
+                    <tr>
+                        <td><b>Contratante</b></td>
+                        <td><span>{persona.contractorNombre}</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <b>Cédula o rif N°:</b>
+                        </td>
+                        <td>
+                            <span>{persona.contractorDNI}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <b>Vigencia</b>
+                        </td>
+                        <td>
+                            <span class="fechaEmision-vencimiento" >{contrato.Desde} - {contrato.Hasta}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <b>Tipo/Vehiculo</b>
+                        </td>
+                        <td>
+                            <span>moto</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <b>Marca</b>
+                        </td>
+                        <td>
+                            <span>{vehiculo.marca}</span>
+                    </tr>
+                    <tr>
+                        <td>
+                            <b>Modelo</b>
+                        </td>
+                        <td>
+                            <span>{vehiculo.modelo}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <b>Año</b>
+                        </td>
+                        <td>
+                            <span>2013</span>
+                        </td>
+                        <td><b>Color</b></td>
+                        <td><span>{vehiculo.color}</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <b>Carroceria</b>
+                        </td>
+                        <td>
+                            <span>8123P1K19DM011592</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <b>Placa</b>
+                        </td>
+                        <td>
+                            <span>AA8P73W</span>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="card back">
+                <div class="title"><b>Ley de Transporte Terrestre</b></div>
+                <p>
+                    <b>Art 58:</b> Todo vehiculo a motor debe de estar amparado por una Pòliza de
+                    seguro de responsabilidad civil, para responder <b>suficientemente</b> por
+                    los daños que ocasione al Estado ò a los y las particulares. Igualmente resulseguro de responsabilidad civil para las
+                    motocicletas, en las mismas condiciones que rige para los automotores.
+                </p>
+                <div class="qr" id="qr-2" >
+                    
+                </div>
+                <p><b>GACETA OFICIAL Nº 37.810 del 04 Nov. 2003</b></p>
+                <p><b>R.I.F.: J-29545700-6 - Inscrito en SUNACOP Bajo El No 301.055</b></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    *{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; 
+}
+html{
+  background-color: gray;
+}
+#plantilla{
+  margin: 0 auto;
+  width: 210mm;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+  background-color: white;
+  font-size: 9pt;
+  position: fixed;
+  left: -200%;
+  display:none;
+}
+header{
+  display:flex;
+  justify-content: space-between;
+}
+.regitation-date{
+  display:grid;
+  grid-template-columns: repeat(4,1fr);
+  overflow: hidden;
+}
+.form-group, .form-group label{
+  display: flex;
+}
+input{
+  padding: 0;
+  border: 1px solid gray;
+  background-color: transparent;
+}
+/* Cartd*/
+.card-side{
+  display: flex;
+  justify-content: center;
+  gap: 1px;
+}
+  .card{
+    width: 360px;
+    height: auto;
+    overflow: hidden;
+    background: url(./card-bg.jpg) bottom center no-repeat;
+    aspect-ratio: 1.586;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    padding: 0.04in;
+    border:1px solid black;
+    
+    *{
+      font-size:8pt;
+      font-family: arial;
+      line-height: 1.3;
+      span{
+        text-transform: uppercase;
+      }
+    }
+  }
+
+.card-header{
+  display: grid;
+  grid-template-columns: 50px 1fr;
+  align-items: flex-start;
+  .logo{
+    width: 42px;
+    height: 42px;
+    &img{
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+  }
+  .header-text{
+    width: 100%;
+    text-align: center;
+    font-weight: 700;
+    font-size: 24px;
+  }
+}
+.back{
+  background: unset;
+  text-align: center;
+  .qr{
+    display: flex;
+    justify-content: center;
+  }
+}
+/*end card*/
+.data-container{
+  .title{
+    text-align: center;
+    background-color: rgb(207, 203, 203);
+    border-bottom: 1px solid black;
+  }
+  border:1px solid black;
+}
+span[contenteditable][data-placeholder]:empty::before {
+  content: attr(data-placeholder);
+  color: #999; /* Color gris para el placeholder */
+  display: inline-block; /* Asegura que el placeholder se muestre */
+}
+
+/* Opcional: Estilo cuando el span está vacío y no tiene foco */
+span[contenteditable][data-placeholder]:empty:not(:focus)::before {
+  /* Puedes ajustar la opacidad o el color si quieres */
+  opacity: 0.7;
+}
+
+/* Opcional: Estilo para el span en general para que se vea como un campo */
+span[contenteditable] {
+  min-height: 20px; /* Asegura una altura mínima */
+  padding: 5px;
+  border: 1px solid #ccc;
+  display: inline-block; /* Importante para que min-width y padding funcionen bien */
+  vertical-align: middle; /* Alineación vertical si está junto a otro texto */
+  text-transform: uppercase;
+}
+@media print{
+  button{
+    display:none
+  }
+  span[contenteditable]{
+    border: none;
+  }
+  #plantilla{
+  position: relative;
+  left: unset;
+  display: block;
+}
+}
+</style>

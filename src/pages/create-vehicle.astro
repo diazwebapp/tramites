@@ -1,0 +1,188 @@
+---
+import Layout from '../layouts/Layout.astro';
+const url = new URL(Astro.request.url);
+const dni = url.searchParams.get('dni');
+
+---
+<Layout>
+  <div class="container">
+   
+    <div class="form-section">
+      <h1>Añadir vehiculo a: <span id="dni" >{dni}</span></h1>
+    </div>
+    
+    <form id="vehicleForm">
+      <fieldset>
+        <legend>Marca</legend>
+        <label for="Marca"><strong>marca:</strong>
+      <input type="text" id="marca" name="marca" required placeholder="bera">
+    </label>
+      </fieldset>
+
+    <fieldset>
+      <legend>Modelo</legend>
+        <label for="Modelo"><strong>Modelo:</strong>
+        <input type="text" id="modelo" name="modelo" required placeholder="sbr 150">
+        </label>
+    </fieldset>
+
+      <fieldset>
+        <legend>Versión</legend>
+        <label for="version"><strong>Versión:</strong>
+            <input type="text" id="version" name="version" required value="N/A">
+        </label>
+      </fieldset>
+
+      <fieldset>
+        <legend>Transmisión</legend>
+        <label for="transmision"><strong>Transmisión:</strong>
+        <select name="transmision" id="transmision" required>
+            <option value="automatico" selected>Automático</option>
+            <option value="sincronico">Sincrónico</option>
+        </select>
+        </label>
+      </fieldset>
+
+      <fieldset>
+        <legend>Año</legend>
+        <label for="anio"><strong>Año:</strong>
+            <input type="number" id="anio" name="anio" placeholder="2013" required>
+        </label>
+      </fieldset>
+
+      <fieldset>
+        <legend>Color</legend>
+        <label for="color"><strong>Color:</strong>
+            <input type="text" id="color" name="color" required placeholder="verde">
+        </label>
+      </fieldset>
+
+      <fieldset>
+        <legend>Tipo</legend>
+        <label for="tipo"><strong>Tipo:</strong>
+            <input type="text" id="tipo" name="tipo" required placeholder="paseo">
+        </label>
+      </fieldset>
+
+      <fieldset>
+        <legend>Uso</legend>
+        <label for="uso"><strong>Uso:</strong>
+            <input type="text" id="uso" name="uso" required placeholder="particular">
+        </label>
+      </fieldset>
+
+      <fieldset>
+        <legend>Placa</legend>
+        <label for="placa"><strong>Placa:</strong>
+            <input type="text" id="placa" name="placa" required>
+        </label>
+      </fieldset>
+
+      <fieldset>
+        <legend>Serial Carrocería</legend>
+        <label for="carroceria"><strong>Carrocería:</strong>
+            <input type="text" id="carroceria" name="carroceria" required>
+        </label>
+      </fieldset>
+
+      <fieldset>
+        <legend>Serial Motor</legend>
+        <label for="motor"><strong>Motor:</strong>
+            <input type="text" id="motor" name="motor" required>
+
+        </label>
+      </fieldset>
+
+      <fieldset>
+        <legend>Puestos/Tonelaje</legend>
+        <label for="puestos_tonelaje"><strong>Puestos/Tonelaje:</strong>
+            <input type="text" list="puestos" id="puestos_tonelaje" name="puestos_tonelaje" required placeholder="2/p o  2/t">
+            <datalist  id="puestos" >
+                <option value="2/p">2/p</option>
+                <option value="2/t">2/t</option>
+                <option value="3/p">3/p</option>
+                <option value="3/t">3/t</option>
+                <option value="4/p">4/p</option>
+                <option value="4/t">4/t</option>
+                <option value="5/p">5/p</option>
+                <option value="5/t">5/t</option>
+                <option value="6/p">6/p</option>
+                <option value="6/t">6/t</option>
+            </datalist>
+        </label>
+      </fieldset>
+      <button type="submit">Enviar</button>
+    </form>
+
+  </div>
+
+  <div id="vehicle-section" style="display: none; width:500px;margin:0 auto;" ></div>
+</Layout>
+<style>
+    form{
+        display: grid;
+        grid-template-columns: repeat(auto-fill,minmax(300px ,1fr));
+    }
+</style>
+
+<script>
+import type { VehicleData } from "../types";
+import { createRcv } from "../utils/rcv.controller";
+import {createVehicle} from '../utils/vehiculos.controller'
+import {createDOMElement} from '../utils//DOMDatosExistente'
+
+    const form = document.getElementById("vehicleForm") as HTMLFormElement
+    const dni = document.getElementById("dni") as HTMLSpanElement
+    const vehicle = document.getElementById("vehicle-section") as HTMLElement
+    const btnSeguir = document.createElement("button")
+    btnSeguir.textContent = "Seguir con este vehiculo"
+
+
+    form?.addEventListener("submit", async (event:Event) => {
+        event.preventDefault();
+        const {marca, modelo, version, transmision, anio, color, tipo, uso, placa, carroceria, motor, puestos_tonelaje} = event.target as any;
+        if(!marca.value || !modelo.value || !version.value || !transmision.value || !anio.value || !color.value || !tipo.value || !uso.value || !placa.value || !carroceria.value || !motor.value || !puestos_tonelaje.value) {
+            return alert("rellene todos los campos")
+        };
+        const data:VehicleData = {
+            marca: marca.value,
+            modelo: modelo.value,
+            version: version.value,
+            transmision: transmision.value,
+            anio: anio.value,
+            color: color.value,
+            tipo: tipo.value,
+            uso: uso.value,
+            placa: placa.value,
+            carroceria: carroceria.value,
+            motor: motor.value,
+            puestos_tonelaje: puestos_tonelaje.value,
+        };
+        
+        const responseData = await createVehicle(data);
+        if(responseData.status === 409){
+          
+          createDOMElement(responseData.vehiculo,vehicle)
+          vehicle.appendChild(btnSeguir)
+          vehicle.style.display = "block"
+          btnSeguir.addEventListener("click", async () => {
+            btnSeguir.disabled = true
+            btnSeguir.textContent = "Cargando..."
+            const {numeroContrato} = await createRcv({placaVehiculo: placa.value, personDNI: dni?.textContent || ""})
+              btnSeguir.textContent = "Seguir con este vehiculo"
+              btnSeguir.disabled = false
+              vehicle.style.display = "none"
+              btnSeguir.remove()
+              document.location = "/info?contrato="+numeroContrato
+          
+          })
+          
+          return alert("El vehiculo ya existe")
+        }
+        if(responseData.status === 500){
+            return alert("Error del servidor")
+        }
+        const {numeroContrato} = await createRcv({placaVehiculo: placa.value, personDNI: dni?.textContent || ""})
+        document.location = "/info?contrato="+numeroContrato
+    })
+</script>

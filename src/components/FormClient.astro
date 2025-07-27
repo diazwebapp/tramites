@@ -1,0 +1,76 @@
+---
+import type { PersonData } from "../types"
+
+type props ={
+  personas : PersonData[]
+}
+const {personas} = Astro.props as props
+---
+<form id="formPerson" >
+    
+            <fieldset>
+                <legend>Name Information</legend>
+
+                <label for="fullname">
+                    <span>Full Name:</span>
+                    <input type="text" id="fullname" name="fullname" required />
+                </label>
+            </fieldset>
+
+
+            <fieldset>
+                <legend>DNI Information</legend>
+                <label for="dni">
+                    <span>DNI:</span>
+                    <input type="text" id="dni" name="contractorDNI" required />
+                </label>
+            </fieldset>
+        
+        
+            <fieldset>
+                <legend>Address Information</legend>
+                <label for="address">
+                    <span>Address:</span>
+                    <input type="text" id="address" name="contractorDreccion" required />
+                </label>
+            </fieldset>
+       
+            <fieldset>
+                <legend>Phone Information</legend>
+                <label for="phone">
+                    <span>Phone Number:</span>
+                    <input type="tel" id="phone" name="contractorTelefono" required />
+                </label>
+            </fieldset>
+           <div>
+            <button>Registrar</button>
+           </div>
+</form>
+
+<script>
+import type { PersonData } from "../types";
+import { createPerson } from "../utils/personas.controller";
+    const form = document.getElementById("formPerson")
+    form?.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        const {fullname, contractorDNI, contractorDreccion, contractorTelefono} = event.target as any;
+        if(!fullname.value || !contractorDNI.value || !contractorDreccion.value || !contractorTelefono.value) {
+            return alert("rellene todos los campos")
+        };
+    
+        const data:PersonData = {
+            contractorNombre: fullname.value,
+            contractorDNI: contractorDNI.value,
+            contractorDreccion: contractorDreccion.value,
+            contractorTelefono: contractorTelefono.value,
+        };
+        const responseData = await createPerson(data);
+        if(responseData.status === 409){
+            return alert("La cédula ya existe")
+        }
+        if(responseData.status === 500){
+            return alert("Error del servidor")
+        }
+        window.location.href = "/create-vehicle?dni="+contractorDNI.value
+    });
+</script>

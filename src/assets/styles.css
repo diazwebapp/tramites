@@ -1,0 +1,126 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; 
+}
+html{
+  background-color: gray;
+}
+body{
+  margin: 0 auto;
+  width: 210mm;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+  background-color: white;
+  font-size: 9pt;
+}
+header{
+  display:flex;
+  justify-content: space-between;
+}
+.regitation-date{
+  display:grid;
+  grid-template-columns: repeat(4,1fr);
+  overflow: hidden;
+}
+.form-group, .form-group label{
+  display: flex;
+}
+input{
+  padding: 0;
+  border: 1px solid gray;
+  background-color: transparent;
+}
+/* Cartd*/
+.card-side{
+  display: flex;
+  justify-content: center;
+  gap: 1px;
+}
+  .card{
+    width: 360px;
+    height: auto;
+    overflow: hidden;
+    background: url(./Screenshot_18.jpg) bottom center no-repeat;
+    aspect-ratio: 1.586;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    padding: 0.04in;
+    border:1px solid black;
+    
+    *{
+      font-size:8pt;
+      font-family: arial;
+      line-height: 1.3;
+      span{
+        text-transform: uppercase;
+      }
+    }
+  }
+
+.card-header{
+  display: grid;
+  grid-template-columns: 50px 1fr;
+  align-items: flex-start;
+  .logo{
+    width: 42px;
+    height: 42px;
+    &img{
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+  }
+  .header-text{
+    width: 100%;
+    text-align: center;
+    font-weight: 700;
+    font-size: 24px;
+  }
+}
+.back{
+  background: unset;
+  text-align: center;
+  .qr{
+    display: flex;
+    justify-content: center;
+  }
+}
+/*end card*/
+.data-container{
+  .title{
+    text-align: center;
+    background-color: rgb(207, 203, 203);
+    border-bottom: 1px solid black;
+  }
+  border:1px solid black;
+}
+span[contenteditable][data-placeholder]:empty::before {
+  content: attr(data-placeholder);
+  color: #999; /* Color gris para el placeholder */
+  display: inline-block; /* Asegura que el placeholder se muestre */
+}
+
+/* Opcional: Estilo cuando el span está vacío y no tiene foco */
+span[contenteditable][data-placeholder]:empty:not(:focus)::before {
+  /* Puedes ajustar la opacidad o el color si quieres */
+  opacity: 0.7;
+}
+
+/* Opcional: Estilo para el span en general para que se vea como un campo */
+span[contenteditable] {
+  min-height: 20px; /* Asegura una altura mínima */
+  padding: 5px;
+  border: 1px solid #ccc;
+  display: inline-block; /* Importante para que min-width y padding funcionen bien */
+  vertical-align: middle; /* Alineación vertical si está junto a otro texto */
+  text-transform: uppercase;
+}
+@media print{
+  button{
+    display:none
+  }
+  span[contenteditable]{
+    border: none;
+  }
+}

@@ -1,0 +1,17 @@
+---
+import PlantillaRcv1 from '../components/Plantilla-rcv-1.astro';
+import Layout from '../layouts/Layout.astro';
+import { readDataStore } from '../utils/data-store';
+
+const {personas} = await readDataStore()
+
+---
+
+<Layout>
+  <div class="container">
+   <PlantillaRcv1/>
+  </div>
+</Layout>
+<script>
+
+</script>

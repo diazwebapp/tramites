@@ -1,0 +1,99 @@
+---
+import PlantillaRcv1 from '../components/PlantillaRCV1.astro';
+import Layout from '../layouts/Layout.astro';
+import { readDataStore } from '../utils/data-store';
+import { calcularDiasRestantes } from '../utils/dates';
+const url = new URL(Astro.request.url);
+const param = url.searchParams.get('contrato');
+let contratoN = 0
+if(!param) return 
+contratoN = parseInt(param)
+const {contratos, vehiculos, personas} = await readDataStore()
+
+const contrato = contratos.find(c=>c.numero_contrato === contratoN)
+const vehiculo = vehiculos.find(v=>v.placa === contrato?.placaVehiculo)
+const persona = personas.find(p=> p.contractorDNI.replace(/\D/g, '') == contrato?.personDNI.replace(/\D/g, ''))
+
+// Ejemplo de uso:
+const diasTotales = calcularDiasRestantes("27/07/2025", "27/07/2026");
+---
+
+<Layout>
+    <div class="container-info">
+        <div class="header">
+            <img width="300px" class="logo"  src="/logo-plantilla.png" alt="logo-empresa">
+        </div>
+        <div class="card">
+            <div class="card-header">Datos del vehiculo</div>
+            <ul class="datos-vehiculo" >
+                <li><b>Estatus:</b> {diasTotales <= 0? "Caducado" : "Vigente" } </li>
+                <li><b>Vehiculo:</b> {vehiculo?.marca} {vehiculo?.modelo}</li>
+                <li><b>Año de Vehiculo:</b> {vehiculo?.anio}</li>
+                <li><b>Placa:</b> {vehiculo?.placa}</li>
+                <li><b>Serial C:</b> {vehiculo?.carroceria}</li>
+                <li><b>Asegurado:</b> {persona?.contractorNombre}</li>
+                <li><b>Fecha de Vencimiento:</b> {contrato?.Hasta}</li>
+                <li><b>Días Restantes:</b> {diasTotales}</li>
+            </ul>
+            <button type="button" id="exportarPDF">Descargar PDF</button>
+        </div>
+        <div>
+            
+        </div>
+    </div>
+  <div class="container-planilla">
+   <PlantillaRcv1 contrato={contrato} vehiculo={vehiculo} persona={persona}/>
+  </div>
+
+</Layout>
+<style>
+    .container-info{
+        padding-top: 40px;
+        width: 100%;
+        max-width: 1200px;
+        display: grid;
+        grid-template-columns: 1fr;
+        justify-content: center;
+        gap: 20px;
+        margin: auto;
+        font-family: arial;
+        .header{
+            text-align:center;
+        }
+    }
+    .card, .logo{
+        width:300px;
+        margin: auto;
+        background:#f7f6f8;
+    }
+    .card-header, #exportarPDF{
+        width: 100%;
+        background-color: #26a647;
+        box-sizing: border-box;
+        padding: 15px;
+        color:white;
+        font-weight: 700;
+        border-radius: 5px;
+        border:none;
+    }
+    .card-header{
+        border-radius: 5px 5px 0 0;
+    }
+    #exportarPDF{
+        cursor: pointer;
+    }
+    .datos-vehiculo{
+        list-style: none;
+        padding: 0 15px;
+        color:rgb(38, 38, 38);
+    }
+    .datos-vehiculo li{
+        padding: 10px 0;
+    }
+
+    @media print{
+        .container-info{display:none;}
+    }
+</style>
+<script is:inline src="/qrcode.min.js"></script>
+<script is:inline src="/script.js"></script>
