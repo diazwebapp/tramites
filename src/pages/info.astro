@@ -101,7 +101,7 @@ const diasTotales = calcularDiasRestantes("27/07/2025", "27/07/2026");
     // Leer el parámetro 'contrato'
     const contrato = urlParams.get('contrato');
 document.addEventListener("DOMContentLoaded", function (){
-    console.log("he cargado el script")
+    
     const containerQR1 = document.getElementById("qr-1") as HTMLElement
     const containerQR2 = document.getElementById("qr-2") as HTMLElement
     document.getElementById("qr-2")
@@ -109,7 +109,7 @@ document.addEventListener("DOMContentLoaded", function (){
     const btnExport = document.getElementById("exportarPDF")
     const element =document.getElementById("plantilla")
     if(btnExport && element){
-        let text = dominio+"?contrato="+contrato
+        let text = dominio+"info?contrato="+contrato
         const qrOpt={
             text,
             width: 100,
