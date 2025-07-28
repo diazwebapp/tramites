@@ -1,7 +1,7 @@
 
 import type { APIRoute } from 'astro';
 import type { PersonData } from '../../types';
-import { readDataStore, writeDataStore, supabase } from '../../utils/data-store';
+import { supabase, get_person_api } from '../../utils/data-store';
 
 export const POST: APIRoute = async ({ request }) => {
   try {
@@ -18,24 +18,14 @@ export const POST: APIRoute = async ({ request }) => {
       });
     }
 
-    // Read existing data
-    const dataStore = await readDataStore();
-
-    // Check for uniqueness based on DNI
-    if (dataStore.personas.some(persona => persona.contractorDNI.toLowerCase() === personData.contractorDNI.toLowerCase())) {
-      return new Response(JSON.stringify({ message: 'Person with this DNI already exists.' }), {
-        status: 409,
+    const {status} = await supabase.from("personas").insert(personData)
+    if(status !== 201){
+      return new Response(JSON.stringify({ message: 'Error con supabase.'}), {
+        status: 500,
         headers: { 'Content-Type': 'application/json' },
       });
     }
-
-    // Add new person
-    dataStore.personas.push(personData);
-
-    // Write updated data
-    await writeDataStore(dataStore);
-
-    return new Response(JSON.stringify({ message: 'Person created successfully.' }), {
+    return new Response(JSON.stringify({ message: 'Person created successfully.', persona:personData }), {
       status: 201,
       headers: { 'Content-Type': 'application/json' },
     });
@@ -53,18 +43,25 @@ export const GET: APIRoute = async({ request })=>{
   const dni = new URL(request.url).searchParams.get('dni');
   if(dni){
     const {data, error} = await supabase.from("personas").select("*").eq('contractorDNI',dni)
+
     if(error){
       return new Response(null,{
         status:500
       })
     }
     if (data.length === 0) {
-      return new Response(null, {
+      const {data}= await get_person_api(parseInt(dni))
+      const persona = {
+        contractorDNI:data.cedula,
+        contractorNombre: `${data.primer_nombre} ${data.segundo_nombre} ${data.primer_apellido} ${data.segundo_apellido}`,
+      }
+      
+      return new Response(JSON.stringify({ status: 404, persona }), {
         status: 404,
         headers: { 'Content-Type': 'application/json' },
       });
     }
-    console.log(data)
+    console.log(data[0])
     return new Response(JSON.stringify({ status: 200, persona:data[0] }), {
       status: 200,
       headers: { 'Content-Type': 'application/json' },

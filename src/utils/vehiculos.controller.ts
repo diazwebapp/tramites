@@ -16,10 +16,3 @@ export const createVehicle = async (vehicle:VehicleData) => {
   if(response.status === 500) return {message:"duplicate",status:500}
   return response.json()
 }
-
-export const checkVehicle = async (placa:string) => {
-  
-    const response = await fetch('/api/vehiculos?placa='+placa);
-    if(response.status === 404) return {message:"not found",status:404}
-    return response.json()
-  }

@@ -1,7 +1,7 @@
 export interface ContratoData {
   numero_contrato: number
-  Desde: string
-  Hasta: string
+  desde: Date
+  hasta: Date
   numero_recibo:number
   placaVehiculo: string
   personDNI:string

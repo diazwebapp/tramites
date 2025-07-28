@@ -17,6 +17,6 @@ export const createPerson = async (person:PersonData) => {
 export const checkPerson = async (dni:string) => {
   
     const response = await fetch('/api/personas?dni='+dni);
-    if(response.status === 404) return {message:"not found",status:404}
-    return response.json()
+    
+    return await response.json()
   }

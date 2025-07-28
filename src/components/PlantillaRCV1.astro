@@ -12,8 +12,8 @@ let {contrato,vehiculo,persona} = Astro.props
     "numero_recibo": 0,
     "personDNI": "",
     "placaVehiculo": "",
-    "Desde": "",
-    "Hasta": ""
+    "desde": new Date(),
+    "hasta": new Date()
 } : contrato
 !vehiculo ? vehiculo = {
     "marca": "",
@@ -68,7 +68,7 @@ let {contrato,vehiculo,persona} = Astro.props
         <table style="width:100%;" >
             <tr>
                 <td>
-                    <p><b>Fecha de Emisión:</b> <span contenteditable="true" class="fechaEmision" >{contrato.Desde}</span></p>
+                    <p><b>Fecha de Emisión:</b> <span contenteditable="true" class="fechaEmision" >{contrato.desde}</span></p>
                 </td>
                 <td>
                     <p><b>* Desde:</b> </p>
@@ -85,13 +85,13 @@ let {contrato,vehiculo,persona} = Astro.props
             </tr>
             <tr>
                 <td>
-                    <p><b>Fecha de Suscripción:</b> <span contenteditable="true" class="fechaEmision">{contrato.Desde}</span></p>
+                    <p><b>Fecha de Suscripción:</b> <span contenteditable="true" class="fechaEmision">{contrato.desde}</span></p>
                 </td>
                 <td>
-                    <span contenteditable="true" class="fechaEmision">{contrato.Desde}</span>
+                    <span contenteditable="true" class="fechaEmision">{contrato.desde}</span>
                 </td>
                 <td>
-                    <span contenteditable="true" class="fechaVencimiento" >{contrato.Hasta}</span>
+                    <span contenteditable="true" class="fechaVencimiento" >{contrato.hasta}</span>
                 </td>
                 <td>
                     <b>Recibo nº:</b>
@@ -227,49 +227,49 @@ let {contrato,vehiculo,persona} = Astro.props
                 <td><b>R.C.V. (cosas)</b></td>
                 <td><span contenteditable="true">250</span></td>
                 <td></td>
-                <td><span contenteditable="true" class="fechaEmision-vencimiento">{contrato.Desde} {contrato.Hasta}</span></td>
+                <td><span contenteditable="true" class="fechaEmision-vencimiento">{contrato.desde} {contrato.hasta}</span></td>
                 <td><span contenteditable="true">1,830.00</span></td>
                 </tr>
                 <tr>
                 <td><b>R.C.V. (personas)</b></td>
                 <td><span contenteditable="true">350</span></td>
                 <td></td>
-                <td><span contenteditable="true" class="fechaEmision-vencimiento">{contrato.Desde} {contrato.Hasta}</span></td>
+                <td><span contenteditable="true" class="fechaEmision-vencimiento">{contrato.desde} {contrato.hasta}</span></td>
                 <td></td>
                 </tr>
                 <tr>
                 <td><b>A.P.O.V. (Muerte Accidental)</b></td>
                 <td><span contenteditable="true">500</span></td>
                 <td></td>
-                <td><span contenteditable="true" class="fechaEmision-vencimiento">{contrato.Desde} {contrato.Hasta}</span></td>
+                <td><span contenteditable="true" class="fechaEmision-vencimiento">{contrato.desde} {contrato.hasta}</span></td>
                 <td></td>
                 </tr>
                 <tr>
                 <td><b>A.P.O.V. (Incapacidad Total)</b></td>
                 <td><span contenteditable="true">500</span></td>
                 <td></td>
-                <td><span contenteditable="true" class="fechaEmision-vencimiento">{contrato.Desde} {contrato.Hasta}</span></td>
+                <td><span contenteditable="true" class="fechaEmision-vencimiento">{contrato.desde} {contrato.hasta}</span></td>
                 <td></td>
                 </tr>
                 <tr>
                 <td><b>A.P.O.V. (Gastos Medicos)</b></td>
                 <td><span contenteditable="true">300</span></td>
                 <td></td>
-                <td><span contenteditable="true" class="fechaEmision-vencimiento">{contrato.Desde} {contrato.Hasta}</span></td>
+                <td><span contenteditable="true" class="fechaEmision-vencimiento">{contrato.desde} {contrato.hasta}</span></td>
                 <td></td>
                 </tr>
                 <tr>
                 <td><b>Exceso de Limites</b></td>
                 <td><span contenteditable="true">6,000</span></td>
                 <td></td>
-                <td><span contenteditable="true" class="fechaEmision-vencimiento">{contrato.Desde} {contrato.Hasta}</span></td>
+                <td><span contenteditable="true" class="fechaEmision-vencimiento">{contrato.desde} {contrato.hasta}</span></td>
                 <td></td>
                 </tr>
                 <tr>
                 <td><b>Asistencia Juridica</b></td>
                 <td><span contenteditable="true">3,000</span></td>
                 <td></td>
-                <td><span contenteditable="true" class="fechaEmision-vencimiento">{contrato.Desde} {contrato.Hasta}</span></td>
+                <td><span contenteditable="true" class="fechaEmision-vencimiento">{contrato.desde} {contrato.hasta}</span></td>
                 <td></td>
                 </tr>
                 <tr>
@@ -288,22 +288,25 @@ let {contrato,vehiculo,persona} = Astro.props
         <br>
         <div class="card-side">
             <div class="card" id="card">
+                <img style="width360px;z-index:-1;position:absolute;bottom:0;left:0;"  src="/card-bg.jpg" >
                 <div class="card-header">
-                    <div class="logo"><img height="42px" width="42px" src="/logo-plantilla.png" alt="logo"></div>
+                    <div class="logo"><img height="60px" width="60px" src="/logo-plantilla.png" alt="logo"></div>
                     <div class="header-text">
-                        R.C.V.<br>
-                        <b>Contrato Nº:</b><span contenteditable="true" style="color: red;">{contrato.numero_contrato}</span>
+                        <p>R.C.V.</p>
+                        <div>
+                            <b>Contrato Nº</b><span style="color: red;">{contrato.numero_contrato}</span>
+                        </div>
                     </div>
                 </div>
                 
-                <table style="width: 100%;" >
+                <table style="width: 100%;" class="table-data" >
                     <tr>
                         <td><b>Contratante</b></td>
                         <td><span>{persona.contractorNombre}</span></td>
                     </tr>
                     <tr>
                         <td>
-                            <b>Cédula o rif N°:</b>
+                            <b>Cédula o rif N°</b>
                         </td>
                         <td>
                             <span>{persona.contractorDNI}</span>
@@ -314,7 +317,7 @@ let {contrato,vehiculo,persona} = Astro.props
                             <b>Vigencia</b>
                         </td>
                         <td>
-                            <span class="fechaEmision-vencimiento" >{contrato.Desde} - {contrato.Hasta}</span>
+                            <span class="fechaEmision-vencimiento" >{contrato.desde} Al {contrato.hasta}</span>
                         </td>
                     </tr>
                     <tr>
@@ -322,7 +325,7 @@ let {contrato,vehiculo,persona} = Astro.props
                             <b>Tipo/Vehiculo</b>
                         </td>
                         <td>
-                            <span>moto</span>
+                            <span>{vehiculo.tipo}</span>
                         </td>
                     </tr>
                     <tr>
@@ -331,6 +334,7 @@ let {contrato,vehiculo,persona} = Astro.props
                         </td>
                         <td>
                             <span>{vehiculo.marca}</span>
+                        </td>
                     </tr>
                     <tr>
                         <td>
@@ -345,17 +349,16 @@ let {contrato,vehiculo,persona} = Astro.props
                             <b>Año</b>
                         </td>
                         <td>
-                            <span>2013</span>
+                            <span>{vehiculo.anio}</span> <b style="margin: 0 10px;" >Color</b><span>{vehiculo.color}</span>
                         </td>
-                        <td><b>Color</b></td>
-                        <td><span>{vehiculo.color}</span></td>
+                        
                     </tr>
                     <tr>
                         <td>
                             <b>Carroceria</b>
                         </td>
                         <td>
-                            <span>8123P1K19DM011592</span>
+                            <span>{vehiculo.carroceria}</span>
                         </td>
                     </tr>
                     <tr>
@@ -363,7 +366,7 @@ let {contrato,vehiculo,persona} = Astro.props
                             <b>Placa</b>
                         </td>
                         <td>
-                            <span>AA8P73W</span>
+                            <span>{vehiculo.placa}</span> <b style="margin: 0 10px" >S/Motor:</b><span style="font-size: 8pt;" >{vehiculo.motor}</span>
                         </td>
                     </tr>
                 </table>
@@ -386,7 +389,7 @@ let {contrato,vehiculo,persona} = Astro.props
         </div>
     </div>
 </div>
-
+<br><br><br>
 <style>
     *{
   margin: 0;
@@ -403,9 +406,7 @@ html{
   print-color-adjust: exact;
   background-color: white;
   font-size: 9pt;
-  position: fixed;
-  left: -200%;
-  display:none;
+  display:block;
 }
 header{
   display:flex;
@@ -428,19 +429,20 @@ input{
 .card-side{
   display: flex;
   justify-content: center;
-  gap: 1px;
+  gap: 2px;
 }
   .card{
+    position: relative;
     width: 360px;
     height: auto;
     overflow: hidden;
-    background: url(./card-bg.jpg) bottom center no-repeat;
     aspect-ratio: 1.586;
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
     padding: 0.04in;
-    border:1px solid black;
-    
+    border:1px solid black ;
+    z-index: 2;
+    display: block;
     *{
       font-size:8pt;
       font-family: arial;
@@ -450,25 +452,39 @@ input{
       }
     }
   }
-
+.table-data b{
+    font-size: 9pt;
+}
 .card-header{
   display: grid;
   grid-template-columns: 50px 1fr;
   align-items: flex-start;
   .logo{
-    width: 42px;
-    height: 42px;
-    &img{
+    width: 50px;
+    height: 50px;
+    img{
       width: 100%;
       height: 100%;
-      object-fit: contain;
     }
   }
   .header-text{
     width: 100%;
-    text-align: center;
     font-weight: 700;
-    font-size: 24px;
+    padding-left: 10px;
+    p{
+        width: 100%;
+        text-align: center;
+        font-size: 14pt;
+    }
+    b,span{
+        font-size: 11pt;
+    }
+    div{
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        padding: 0 0px;
+    }
   }
 }
 .back{

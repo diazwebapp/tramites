@@ -1,9 +1,9 @@
 
 import type { APIRoute } from 'astro';
 import type { VehicleData } from '../../types';
-import { readDataStore, writeDataStore } from '../../utils/data-store';
-// Read existing data
-const dataStore = await readDataStore();
+import { supabase } from '../../utils/data-store';
+
+
 export const POST: APIRoute = async ({ request }) => {
   try {
     const requestBody = await request.json();
@@ -18,23 +18,15 @@ export const POST: APIRoute = async ({ request }) => {
         headers: { 'Content-Type': 'application/json' },
       });
     }
-
-    
-    // Check for uniqueness based on DNI
-    if (dataStore.vehiculos.some(v => v.placa.toLowerCase() === vehiculo.placa.toLowerCase())) {
-      return new Response(JSON.stringify({ message: 'Person with this DNI already exists.', vehiculo }), {
+    const {status} = await supabase.from("vehiculos").insert(vehiculo)
+    if(status == 409){
+      const vehiculoExistente = await supabase.from("vehiculos").select("*").eq('placa',vehiculo.placa).single()
+      return new Response(JSON.stringify({ message: 'Error con supabase, el vehiculo ya existe.', vehiculo:vehiculoExistente.data }), {
         status: 409,
         headers: { 'Content-Type': 'application/json' },
       });
     }
-
-    // Add new person
-    dataStore.vehiculos.push(vehiculo);
-
-    // Write updated data
-    await writeDataStore(dataStore);
-
-    return new Response(JSON.stringify({ message: 'Person created successfully.' }), {
+    return new Response(JSON.stringify({ message: 'Vehicle created successfully.', vehiculo }), {
       status: 201,
       headers: { 'Content-Type': 'application/json' },
     });
@@ -47,24 +39,3 @@ export const POST: APIRoute = async ({ request }) => {
     });
   }
 };
-
-export const GET: APIRoute = async({ request })=>{
-  const placa = new URL(request.url).searchParams.get('placa');
-  if(placa){
-    const data = await readDataStore()
-    const vehiculo = data.vehiculos.find(vehiculo => vehiculo.placa === placa)
-    if (!vehiculo) {
-      return new Response(null, {
-        status: 404,
-        headers: { 'Content-Type': 'application/json' },
-      });
-    }
-    return new Response(JSON.stringify({ vehiculo }), {
-      status: 200,
-      headers: { 'Content-Type': 'application/json' },
-    });
-  }
-  return new Response(null,{
-    status:500
-  })
-}

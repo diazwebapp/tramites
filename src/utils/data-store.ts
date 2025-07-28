@@ -3,9 +3,15 @@ import path from 'path';
 import type { ContratoData, PersonData, VehicleData } from '../types';
 import { createClient } from '@supabase/supabase-js'
 
-const supabaseUrl = import.meta.env.SUPABASE_URL; // Ejemplo: 'https://abcdefghijk.supabase.co'
-const supabaseKey = import.meta.env.SUPABASE_SECRECT_KEY; // Ejemplo: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...'
-
+const supabaseUrl = import.meta.env.SUPABASE_URL; 
+const supabaseKey = import.meta.env.SUPABASE_SECRECT_KEY; 
+const cedula_app_id = import.meta.env.API_CEDULA_ID
+const cedula_app_url = import.meta.env.API_CEDULA_TOKEN
+export const get_person_api = async(cedula:number)=>{
+  const url = `https://api.cedula.com.ve/api/v1?app_id=${cedula_app_id}&token=${cedula_app_url}&nacionalidad=va&cedula=${cedula}`
+  const request = await fetch(url)
+  return await request.json()
+}
 export const supabase = createClient(supabaseUrl, supabaseKey);
 
 interface DataStore {

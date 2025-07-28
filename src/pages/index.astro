@@ -1,14 +1,15 @@
 ---
-import Layout from '../layouts/Layout.astro'
-
 
 ---
 
-<Layout>
+
   <div class="container">
-
+    <h1>Contenido no accesible</h1>
   </div>
-</Layout>
 <script>
-
+  const response = await fetch("/api/rcv", {
+  method: "POST",
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ data: "test" })
+});
 </script>
