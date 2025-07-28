@@ -60,7 +60,12 @@ const dni = url.searchParams.get('dni');
       <fieldset>
         <legend>Tipo</legend>
         <label for="tipo"><strong>Tipo:</strong>
-            <input type="text" id="tipo" name="tipo" required placeholder="paseo">
+            <input type="text" id="tipo" list="tipos" name="tipo" required placeholder="paseo">
+            <datalist id="tipos">
+              <option value="camioneta">camioneta</option>
+              <option value="camioneta">carro</option>
+              <option value="camioneta">moto</option>
+            </datalist>
         </label>
       </fieldset>
 
