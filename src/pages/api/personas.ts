@@ -1,7 +1,7 @@
 
 import type { APIRoute } from 'astro';
 import type { PersonData } from '../../types';
-import { readDataStore, writeDataStore } from '../../utils/data-store';
+import { readDataStore, writeDataStore, supabase } from '../../utils/data-store';
 
 export const POST: APIRoute = async ({ request }) => {
   try {
@@ -52,15 +52,20 @@ export const POST: APIRoute = async ({ request }) => {
 export const GET: APIRoute = async({ request })=>{
   const dni = new URL(request.url).searchParams.get('dni');
   if(dni){
-    const data = await readDataStore()
-    const persona = data.personas.find(persona => persona.contractorDNI === dni)
-    if (!persona) {
+    const {data, error} = await supabase.from("personas").select("*").eq('contractorDNI',dni)
+    if(error){
+      return new Response(null,{
+        status:500
+      })
+    }
+    if (data.length === 0) {
       return new Response(null, {
         status: 404,
         headers: { 'Content-Type': 'application/json' },
       });
     }
-    return new Response(JSON.stringify({ status: 200, persona }), {
+    console.log(data)
+    return new Response(JSON.stringify({ status: 200, persona:data[0] }), {
       status: 200,
       headers: { 'Content-Type': 'application/json' },
     });

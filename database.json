@@ -1,6 +1,6 @@
 {
-  "ncontratoBase": 700000002315,
-  "nreciboBase": 700000007315,
+  "ncontratoBase": 700000002317,
+  "nreciboBase": 700000007317,
   "contratos": [
     {
       "numero_contrato": 700000002314,
@@ -14,6 +14,14 @@
       "numero_contrato": 700000002315,
       "numero_recibo": 700000007315,
       "personDNI": "23413903",
+      "placaVehiculo": "AA8P73W",
+      "Desde": "27/07/2025",
+      "Hasta": "27/07/2026"
+    },
+    {
+      "numero_contrato": 700000002317,
+      "numero_recibo": 700000007317,
+      "personDNI": "17.284.185",
       "placaVehiculo": "AA8P73W",
       "Desde": "27/07/2025",
       "Hasta": "27/07/2026"

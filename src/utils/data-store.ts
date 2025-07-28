@@ -1,6 +1,12 @@
 import fs from 'fs/promises';
 import path from 'path';
 import type { ContratoData, PersonData, VehicleData } from '../types';
+import { createClient } from '@supabase/supabase-js'
+
+const supabaseUrl = import.meta.env.SUPABASE_URL; // Ejemplo: 'https://abcdefghijk.supabase.co'
+const supabaseKey = import.meta.env.SUPABASE_SECRECT_KEY; // Ejemplo: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...'
+
+export const supabase = createClient(supabaseUrl, supabaseKey);
 
 interface DataStore {
   personas: PersonData[]
@@ -14,6 +20,7 @@ const DATA_STORE_PATH = path.join(process.cwd(), 'database.json');
 
 export async function readDataStore(): Promise<DataStore> {
   try {
+   
     const data = await fs.readFile(DATA_STORE_PATH, 'utf-8');
     return JSON.parse(data) as DataStore;
   } catch (error: any) {
