@@ -12,7 +12,7 @@ export const POST: APIRoute = async ({ request }) => {
     const vehiculo: VehicleData = requestBody as VehicleData;
 
     // Basic validation
-    if (!vehiculo.marca || !vehiculo.modelo || !vehiculo.version || !vehiculo.anio || !vehiculo.carroceria || !vehiculo.color || !vehiculo.motor || !vehiculo.placa || !vehiculo.puestos_tonelaje || !vehiculo.tipo || !vehiculo.uso || !vehiculo.transmision) {
+    if (!vehiculo.marca || !vehiculo.modelo || !vehiculo.clase || !vehiculo.anio || !vehiculo.carroceria || !vehiculo.color || !vehiculo.motor || !vehiculo.placa || !vehiculo.puestos_tonelaje || !vehiculo.tipo || !vehiculo.uso ) {
       return new Response(JSON.stringify({ message: 'All fields are required.' }), {
         status: 400,
         headers: { 'Content-Type': 'application/json' },

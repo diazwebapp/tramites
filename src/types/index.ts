@@ -16,8 +16,7 @@ export interface PersonData{
 export interface VehicleData{
     marca: string
     modelo: string
-    version:string
-    transmision:string
+    clase:string
     anio:string
     color:string
     tipo:string

@@ -18,8 +18,7 @@ let {contrato,vehiculo,persona} = Astro.props
 !vehiculo ? vehiculo = {
     "marca": "",
       "modelo": "",
-      "version": "",
-      "transmision": "",
+      "clase": "",
       "anio": "",
       "color": "",
       "tipo": "",
@@ -191,7 +190,7 @@ let {contrato,vehiculo,persona} = Astro.props
                 </tr>
                 <tr>
                     <td><strong>VERSION:</strong></td>
-                    <td><span contenteditable="true" data-placeholder="Versión">{vehiculo.version}</span></td>
+                    <td><span contenteditable="true" data-placeholder="Versión">{vehiculo.clase}</span></td>
                     <td><strong>TIPO:</strong></td>
                     <td><span contenteditable="true" data-placeholder="Tipo de vehículo">{vehiculo.tipo}</span></td>
                     <td><strong>MOTOR:</strong></td>
@@ -199,7 +198,7 @@ let {contrato,vehiculo,persona} = Astro.props
                 </tr>
                 <tr>
                     <td><strong>TRANSMISION:</strong></td>
-                    <td><span contenteditable="true" data-placeholder="Tipo de transmisión">{vehiculo.transmision}</span></td>
+                    
                     <td><strong>USO:</strong></td>
                     <td><span contenteditable="true" data-placeholder="Uso del vehículo">{vehiculo.uso}</span></td>
                     <td><strong>PUESTOS Y /O TONELAJE:</strong></td>

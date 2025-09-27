@@ -1,0 +1,1 @@
+const t=async e=>{const s=await fetch("/api/personas",{method:"POST",body:JSON.stringify(e),headers:{"Content-Type":"application/json"}});return s.status===409?{message:"duplicate",status:409}:s.status===500?{message:"duplicate",status:500}:s.json()},a=async e=>await(await fetch("/api/personas?dni="+e)).json();export{t as a,a as c};
