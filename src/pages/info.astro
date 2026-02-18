@@ -13,8 +13,10 @@ const {data:contrato} = await supabase.from("contratos").select("*").eq("numero_
 const {data:vehiculo}= await supabase.from("vehiculos").select("*").eq("placa", contrato?.placaVehiculo).single()
 const {data:persona} = await supabase.from("personas").select("*").eq("contractorDNI", contrato?.personDNI).single()
 
-// Ejemplo de uso:
-const diasTotales = calcularDiasRestantes("27/07/2025", "27/07/2026");
+// convertir fecha inicio del contrato a date
+
+const diasTotales = calcularDiasRestantes(contrato.desde, contrato.hasta);
+console.log(diasTotales)
 ---
 
 <Layout>
