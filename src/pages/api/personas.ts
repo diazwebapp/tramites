@@ -65,7 +65,7 @@ export const GET: APIRoute = async({ request })=>{
         headers: { 'Content-Type': 'application/json' },
       });
     }
-    console.log(data[0])
+    
     return new Response(JSON.stringify({ status: 200, persona:data[0] }), {
       status: 200,
       headers: { 'Content-Type': 'application/json' },

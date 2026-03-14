@@ -7,11 +7,11 @@ const dni = url.searchParams.get('dni');
 <Layout>
   <div class="container">
    
-    <div class="form-section">
+    <div>
       <h1>Añadir vehiculo a: <span id="dni" >{dni}</span></h1>
     </div>
     
-    <form id="vehicleForm">
+    <form id="vehicleForm" class="form-section">
       <fieldset>
         <legend>Marca</legend>
         <label for="Marca"><strong>marca:</strong>
@@ -113,12 +113,6 @@ const dni = url.searchParams.get('dni');
 
   <div id="vehicle-section" style="display: none; width:500px;margin:0 auto;" ></div>
 </Layout>
-<style>
-    form{
-        display: grid;
-        grid-template-columns: repeat(auto-fill,minmax(300px ,1fr));
-    }
-</style>
 
 <script>
 import type { VehicleData } from "../types";
