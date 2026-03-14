@@ -1,5 +1,6 @@
 ---
 import FormClient from '../components/FormClient.astro';
+import '../styles/forms.css';
 import Layout from '../layouts/Layout.astro';
 
 ---
@@ -9,8 +10,12 @@ import Layout from '../layouts/Layout.astro';
    
     <div class="form-section">
       <h1>Añadir Cliente</h1>
-      <div id="search-container" >
+      <div id="search-container" class="search-container" >
         <input type="search" name="search" placeholder="DNI" id="dniShare">
+        <select name="n" id="nShare">
+          <option value="v" selected>v</option>
+          <option value="e">e</option>
+        </select>
         <button id="search" >Buscar</button>
       </div>
       <div style="display: none;" id="create-person-form">
@@ -23,16 +28,18 @@ import Layout from '../layouts/Layout.astro';
 <script>
 import { checkPerson } from "../utils/personas.controller";
 const searchInput = document.getElementById("dniShare") as HTMLInputElement;
+const countryInput = document.getElementById("nShare") as HTMLInputElement;
 const searchBtn = document.getElementById("search") as HTMLInputElement;
 const searchContainer = document.getElementById("search-container") as HTMLElement
 const createPersonForm = document.getElementById("create-person-form") as HTMLElement
 
 searchBtn?.addEventListener("click",async()=>{ 
     const target = searchInput.value
+    const country = countryInput.value
     if(!target|| target== "") return
     const nameInput = document.getElementById("fullname") as HTMLInputElement
     const cedulaInput = document.getElementById("dni") as HTMLInputElement
-    const {status, persona} = await checkPerson(target)
+    const {status, persona} = await checkPerson(target,country)
     
     if(status == 404){
         if(nameInput && cedulaInput){
@@ -51,5 +58,4 @@ searchBtn?.addEventListener("click",async()=>{
         window.location.href = `/create-vehicle?dni=${target}`
     }
 })
-   
 </script>

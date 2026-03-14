@@ -14,9 +14,9 @@ export const createPerson = async (person:PersonData) => {
   return response.json()
 }
 
-export const checkPerson = async (dni:string) => {
+export const checkPerson = async (dni:string,country:string) => {
   
-    const response = await fetch('/api/personas?dni='+dni);
+    const response = await fetch('/api/personas?dni='+dni+'&country='+country);
     
     return await response.json()
   }

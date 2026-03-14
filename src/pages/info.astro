@@ -16,7 +16,7 @@ const {data:persona} = await supabase.from("personas").select("*").eq("contracto
 // convertir fecha inicio del contrato a date
 
 const diasTotales = calcularDiasRestantes(contrato.desde, contrato.hasta);
-console.log(diasTotales)
+
 ---
 
 <Layout>

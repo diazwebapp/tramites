@@ -21,8 +21,6 @@ export function calcularDiasRestantes(fechaInicioStr:string, fechaCaducidadStr:s
   // Convertir fechas en formato "dd/mm/yyyy" a objetos Date
   const [anioInicio, mesInicio, diaInicio] = fechaInicioStr.split('-').map(Number);
   const [anioCad, mesCad, diaCad] = fechaCaducidadStr.split('-').map(Number);
-  console.log(diaInicio, mesInicio, anioInicio)
-  console.log(diaCad, mesCad, anioCad)
   const inicio = new Date(anioInicio, mesInicio - 1 , diaInicio);
   const caducidad = new Date(anioCad, mesCad - 1, diaCad);
   const hoy = new Date();
