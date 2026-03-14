@@ -38,8 +38,9 @@ searchBtn?.addEventListener("click",async()=>{
     if(!target|| target== "") return
     const nameInput = document.getElementById("fullname") as HTMLInputElement
     const cedulaInput = document.getElementById("dni") as HTMLInputElement
+    searchBtn.disabled = true
     const {status, persona} = await checkPerson(target,country)
-    
+    searchBtn.disabled = false
     if(status == 404){
         if(nameInput && cedulaInput){
 
