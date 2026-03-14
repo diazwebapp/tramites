@@ -19,17 +19,18 @@ function toUTC(date: Date) {
 
 export function calcularDiasRestantes(fechaInicioStr:string, fechaCaducidadStr:string) {
   // Convertir fechas en formato "dd/mm/yyyy" a objetos Date
-  const [diaInicio, mesInicio, anioInicio] = fechaInicioStr.split('/').map(Number);
-  const [diaCad, mesCad, anioCad] = fechaCaducidadStr.split('/').map(Number);
-  
-  const inicio = new Date(anioInicio, mesInicio - 1, diaInicio);
+  const [anioInicio, mesInicio, diaInicio] = fechaInicioStr.split('-').map(Number);
+  const [anioCad, mesCad, diaCad] = fechaCaducidadStr.split('-').map(Number);
+  const inicio = new Date(anioInicio, mesInicio - 1 , diaInicio);
   const caducidad = new Date(anioCad, mesCad - 1, diaCad);
-  
+  const hoy = new Date();
+ 
   // Normalizar a UTC
   const inicioUTC:any = toUTC(inicio);
   const caducidadUTC:any = toUTC(caducidad);
+  const hoyUTC:any = toUTC(hoy);
   
   // Calcular diferencia
-  const diffMs = caducidadUTC - inicioUTC;
+  const diffMs = caducidadUTC - hoyUTC;
   return Math.floor(diffMs / 86400000);
 }

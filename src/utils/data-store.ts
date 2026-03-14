@@ -6,9 +6,9 @@ import { createClient } from '@supabase/supabase-js'
 const supabaseUrl = import.meta.env.SUPABASE_URL; 
 const supabaseKey = import.meta.env.SUPABASE_SECRECT_KEY; 
 const cedula_app_id = import.meta.env.API_CEDULA_ID
-const cedula_app_url = import.meta.env.API_CEDULA_TOKEN
-export const get_person_api = async(cedula:number)=>{
-  const url = `https://api.cedula.com.ve/api/v1?app_id=${cedula_app_id}&token=${cedula_app_url}&nacionalidad=va&cedula=${cedula}`
+const cedula_app_token = import.meta.env.API_CEDULA_TOKEN
+export const get_person_api = async(cedula:number,country:string)=>{
+  const url = `https://api.cedula.com.ve/api/v1?app_id=${cedula_app_id}&token=${cedula_app_token}&nacionalidad=${country}&cedula=${cedula}`
   const request = await fetch(url)
   return await request.json()
 }

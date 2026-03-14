@@ -41,6 +41,8 @@ export const POST: APIRoute = async ({ request }) => {
 
 export const GET: APIRoute = async({ request })=>{
   const dni = new URL(request.url).searchParams.get('dni');
+  const country = new URL(request.url).searchParams.get('country');
+  
   if(dni){
     const cleanDNI = dni.replace(/[^0-9]/g, '').trim()
     const {data, error} = await supabase.from("personas").select("*").eq('contractorDNI',cleanDNI)
@@ -50,8 +52,9 @@ export const GET: APIRoute = async({ request })=>{
         status:500
       })
     }
-    if (data.length === 0) {
-      const {data}= await get_person_api(parseInt(cleanDNI))
+    if (data.length === 0 && country) {
+      console.log(country)
+      const {data}= await get_person_api(parseInt(cleanDNI),country)
       const persona = {
         contractorDNI:data.cedula,
         contractorNombre: `${data.primer_nombre} ${data.segundo_nombre} ${data.primer_apellido} ${data.segundo_apellido}`,
