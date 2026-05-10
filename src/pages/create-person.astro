@@ -42,6 +42,7 @@ searchBtn?.addEventListener("click",async()=>{
     if(!target|| target== "") return
     const nameInput = document.getElementById("fullname") as HTMLInputElement
     const cedulaInput = document.getElementById("dni") as HTMLInputElement
+    searchBtn.disabled = true
     const {status, persona} = await checkPerson(target,country)
     
     if(status == 404){
@@ -57,6 +58,7 @@ searchBtn?.addEventListener("click",async()=>{
         return
     }
     const resp = window.confirm("la persona ya existe, quiere seguir con el proceso?")
+    searchBtn.disabled = false
     if(resp){
         window.location.href = `/create-vehicle?dni=${target}`
     }

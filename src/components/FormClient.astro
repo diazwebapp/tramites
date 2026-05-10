@@ -43,7 +43,7 @@ const {personas} = Astro.props as props
                 </label>
             </fieldset>
            <div>
-            <button>Registrar</button>
+            <button id="btnRegistrar" >Registrar</button>
            </div>
 </form>
 
@@ -51,21 +51,27 @@ const {personas} = Astro.props as props
 import type { PersonData } from "../types";
 import { createPerson } from "../utils/personas.controller";
     const form = document.getElementById("formPerson")
+    
+
     form?.addEventListener("submit", async (event) => {
+        const btnRegistrar = document.getElementById("btnRegistrar")
         event.preventDefault();
+        btnRegistrar?.setAttribute("disabled", "true")
         const {fullname, contractor_dni, contractorDreccion, contractorTelefono} = event.target as any;
         if(!fullname.value || !contractor_dni.value || !contractorDreccion.value || !contractorTelefono.value) {
             return alert("rellene todos los campos")
         };
-    
+        btnRegistrar?.removeAttribute("disabled")
         const data:PersonData = {
             contractor_nombre: fullname.value,
             contractor_dni: contractor_dni.value,
             contractor_direccion: contractorDreccion.value,
             contractor_telefono: contractorTelefono.value,
         };
+        btnRegistrar?.setAttribute("disabled", "true")
         const responseData = await createPerson(data);
         if(responseData.status === 409){
+            btnRegistrar?.removeAttribute("disabled")
             return alert("La cédula ya existe")
         }
         if(responseData.status === 500){

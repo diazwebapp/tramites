@@ -104,7 +104,7 @@ const dni = url.searchParams.get('dni');
             </datalist>
         </label>
       </fieldset>
-      <button type="submit">Enviar</button>
+      <button id="registrar_vehiculo" type="submit">Enviar</button>
     </form>
     </div>
     
@@ -130,10 +130,14 @@ import {createDOMElement} from '../utils//DOMDatosExistente'
 
     form?.addEventListener("submit", async (event:Event) => {
         event.preventDefault();
+        const btnRegistrar = document.getElementById("registrar_vehiculo") as HTMLButtonElement
+        btnRegistrar.disabled = true
         const {marca, modelo, clase, anio, color, tipo, uso, placa, carroceria, motor, puestos_tonelaje} = event.target as any;
         if(!marca.value || !modelo.value || !clase.value || !anio.value || !color.value || !tipo.value || !uso.value || !placa.value || !carroceria.value || !motor.value || !puestos_tonelaje.value) {
-            return alert("rellene todos los campos")
+          btnRegistrar.disabled = false  
+          return alert("rellene todos los campos")
         };
+        
         const data:VehicleData = {
             marca: marca.value,
             modelo: modelo.value,
@@ -168,9 +172,11 @@ import {createDOMElement} from '../utils//DOMDatosExistente'
           
           return alert("El vehiculo ya existe")
         }
+        
         if(responseData.status === 500){
             return alert("Error del servidor")
         }
+        btnRegistrar.disabled = false
         const {numeroContrato} = await createRcv({placaVehiculo: placa.value, personDNI: dni?.textContent || ""})
         document.location = "/info?contrato="+numeroContrato
     })
