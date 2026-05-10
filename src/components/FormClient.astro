@@ -22,7 +22,7 @@ const {personas} = Astro.props as props
                 <legend>DNI Information</legend>
                 <label >
                     <span>DNI:</span>
-                    <input type="text" id="dni" name="contractorDNI" required />
+                    <input type="text" id="dni" name="contractor_dni" required />
                 </label>
             </fieldset>
         
@@ -53,16 +53,16 @@ import { createPerson } from "../utils/personas.controller";
     const form = document.getElementById("formPerson")
     form?.addEventListener("submit", async (event) => {
         event.preventDefault();
-        const {fullname, contractorDNI, contractorDreccion, contractorTelefono} = event.target as any;
-        if(!fullname.value || !contractorDNI.value || !contractorDreccion.value || !contractorTelefono.value) {
+        const {fullname, contractor_dni, contractorDreccion, contractorTelefono} = event.target as any;
+        if(!fullname.value || !contractor_dni.value || !contractorDreccion.value || !contractorTelefono.value) {
             return alert("rellene todos los campos")
         };
     
         const data:PersonData = {
-            contractorNombre: fullname.value,
-            contractorDNI: contractorDNI.value,
-            contractorDreccion: contractorDreccion.value,
-            contractorTelefono: contractorTelefono.value,
+            contractor_nombre: fullname.value,
+            contractor_dni: contractor_dni.value,
+            contractor_direccion: contractorDreccion.value,
+            contractor_telefono: contractorTelefono.value,
         };
         const responseData = await createPerson(data);
         if(responseData.status === 409){
@@ -71,6 +71,6 @@ import { createPerson } from "../utils/personas.controller";
         if(responseData.status === 500){
             return alert("Error del servidor")
         }
-        window.location.href = "/create-vehicle?dni="+contractorDNI.value
+        window.location.href = "/create-vehicle?dni="+contractor_dni.value
     });
 </script>

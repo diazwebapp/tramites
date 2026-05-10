@@ -9,14 +9,16 @@ export const createPerson = async (person:PersonData) => {
       'Content-Type': 'application/json',
     },
   });
+  console.log(response.status)
   if(response.status === 409) return {message:"duplicate",status:409}
   if(response.status === 500) return {message:"duplicate",status:500}
+  if(response.status === 400) return {message:"??",status:400}
   return response.json()
 }
 
 export const checkPerson = async (dni:string,country:string) => {
   
     const response = await fetch('/api/personas?dni='+dni+'&country='+country);
-    
+    console.log(response);
     return await response.json()
   }

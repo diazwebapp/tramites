@@ -18,9 +18,9 @@ export const POST: APIRoute = async ({ request }) => {
         headers: { 'Content-Type': 'application/json' },
       });
     }
-    const {status} = await supabase.from("vehiculos").insert(vehiculo)
+    const {status} = await supabase.from("vehicle_data").insert(vehiculo)
     if(status == 409){
-      const vehiculoExistente = await supabase.from("vehiculos").select("*").eq('placa',vehiculo.placa).single()
+      const vehiculoExistente = await supabase.from("vehicle_data").select("*").eq('placa',vehiculo.placa).single()
       return new Response(JSON.stringify({ message: 'Error con supabase, el vehiculo ya existe.', vehiculo:vehiculoExistente.data }), {
         status: 409,
         headers: { 'Content-Type': 'application/json' },

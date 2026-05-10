@@ -1,6 +1,6 @@
 ---
 import FormClient from '../components/FormClient.astro';
-import '../styles/forms.css';
+
 import Layout from '../layouts/Layout.astro';
 
 ---
@@ -12,11 +12,13 @@ import Layout from '../layouts/Layout.astro';
       <h1>Añadir Cliente</h1>
       <div id="search-container" class="search-container" >
         <input type="search" name="search" placeholder="DNI" id="dniShare">
-        <select name="n" id="nShare">
+        <div>
+          <select name="n" id="nShare">
           <option value="v" selected>v</option>
           <option value="e">e</option>
         </select>
         <button id="search" >Buscar</button>
+        </div>
       </div>
       <div style="display: none;" id="create-person-form">
         <FormClient>
@@ -25,6 +27,7 @@ import Layout from '../layouts/Layout.astro';
     
   </div>
 </Layout>
+
 <script>
 import { checkPerson } from "../utils/personas.controller";
 const searchInput = document.getElementById("dniShare") as HTMLInputElement;
@@ -45,7 +48,7 @@ searchBtn?.addEventListener("click",async()=>{
         if(nameInput && cedulaInput){
 
           nameInput.value = persona.contractorNombre
-          cedulaInput.value = persona.contractorDNI
+          cedulaInput.value = persona.contractor_dni
 
         }
 

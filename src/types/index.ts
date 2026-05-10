@@ -1,17 +1,17 @@
 export interface ContratoData {
-  numero_contrato: number
+  numero_contrato?: number
   desde: Date
   hasta: Date
-  numero_recibo:number
-  placaVehiculo: string
-  personDNI:string
+  numero_recibo?:number
+  placa_vehiculo: string
+  person_dni:string
 }
 
 export interface PersonData{
-  contractorDNI : string
-  contractorDreccion:string
-  contractorNombre: string
-  contractorTelefono:string
+  contractor_dni : string
+  contractor_direccion:string
+  contractor_nombre: string
+  contractor_telefono:string
 }
 export interface VehicleData{
     marca: string

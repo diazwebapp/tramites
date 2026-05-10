@@ -11,15 +11,17 @@ export const POST: APIRoute = async ({ request }) => {
     const personData: PersonData = requestBody as PersonData;
 
     // Basic validation
-    if (!personData.contractorDNI || !personData.contractorNombre || !personData.contractorDreccion || !personData.contractorTelefono) {
+    if (!personData.contractor_dni || !personData.contractor_nombre || !personData.contractor_direccion || !personData.contractor_telefono) {
+      console.log("error en concordancia de datos")
       return new Response(JSON.stringify({ message: 'All fields are required.' }), {
         status: 400,
         headers: { 'Content-Type': 'application/json' },
       });
     }
 
-    const {status} = await supabase.from("personas").insert(personData)
+    const {status, error} = await supabase.from("person_data").insert(personData)
     if(status !== 201){
+      console.log(error)
       return new Response(JSON.stringify({ message: 'Error con supabase.'}), {
         status: 500,
         headers: { 'Content-Type': 'application/json' },
@@ -45,18 +47,19 @@ export const GET: APIRoute = async({ request })=>{
   
   if(dni){
     const cleanDNI = dni.replace(/[^0-9]/g, '').trim()
-    const {data, error} = await supabase.from("personas").select("*").eq('contractorDNI',cleanDNI)
+    const {data, error} = await supabase.from("person_data").select("*").eq('contractor_dni',cleanDNI)
 
     if(error){
+      console.log(error)
       return new Response(null,{
         status:500
       })
     }
     if (data.length === 0 && country) {
-      console.log(country)
+      
       const {data}= await get_person_api(parseInt(cleanDNI),country)
       const persona = {
-        contractorDNI:data.cedula,
+        contractor_dni:data.cedula,
         contractorNombre: `${data.primer_nombre} ${data.segundo_nombre} ${data.primer_apellido} ${data.segundo_apellido}`,
       }
       

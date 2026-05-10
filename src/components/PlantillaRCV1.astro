@@ -30,7 +30,7 @@ let {contrato,vehiculo,persona} = Astro.props
 } : vehiculo
 !persona ? persona = {
     "contractorNombre": "",
-    "contractorDNI": "",
+    "contractor_dni": "",
     "contractorDreccion": "",
     "contractorTelefono": ""
 } : persona
@@ -109,7 +109,7 @@ let {contrato,vehiculo,persona} = Astro.props
                         <td>
                             <label for="cedula-1">
                                 <b>Cédula o Rif nº:</b>
-                                <span contenteditable="true" data-placeholder="Introduce la cédula o RIF" class="tomadorDNI">{persona.contractorDNI}</span>
+                                <span contenteditable="true" data-placeholder="Introduce la cédula o RIF" class="tomadorDNI">{persona.contractor_dni}</span>
                             </label>
                         </td>
                         <td>
@@ -143,7 +143,7 @@ let {contrato,vehiculo,persona} = Astro.props
                         <td>
                             <label for="cedula-1">
                                 <b>Cédula o Rif nº:</b>
-                                <span contenteditable="true" data-placeholder="Introduce la cédula o RIF" class="contenteditable">{persona.contractorDNI}</span>
+                                <span contenteditable="true" data-placeholder="Introduce la cédula o RIF" class="contenteditable">{persona.contractor_dni}</span>
                             </label>
                         </td>
                         <td>
@@ -308,7 +308,7 @@ let {contrato,vehiculo,persona} = Astro.props
                             <b>Cédula o rif N°</b>
                         </td>
                         <td>
-                            <span>{persona.contractorDNI}</span>
+                            <span>{persona.contractor_dni}</span>
                         </td>
                     </tr>
                     <tr>

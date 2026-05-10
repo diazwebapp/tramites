@@ -32,7 +32,7 @@ export async function readDataStore(): Promise<DataStore> {
   } catch (error: any) {
     // If the file doesn't exist, create it with an empty array
     if (error.code === 'ENOENT') {
-      const initialData: DataStore = { personas: [],contratos:[],ncontratoBase:700000002314, vehiculos:[], nreciboBase:700000007314 };
+      const initialData: DataStore = { personas: [],contratos:[],ncontratoBase:200000002314, vehiculos:[], nreciboBase:200000007314 };
       await writeDataStore(initialData);
       return initialData;
     }

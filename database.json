@@ -30,13 +30,13 @@
   "personas": [
     {
       "contractorNombre": "EDISON J. REYES CERRANO",
-      "contractorDNI": "v-17.284.185",
+      "contractor_dni": "v-17.284.185",
       "contractorDreccion": "N/A",
       "contractorTelefono": "N/A"
     },
     {
       "contractorNombre": "Erick Diaz Estrada",
-      "contractorDNI": "v-23413903",
+      "contractor_dni": "v-23413903",
       "contractorDreccion": "bicentenario",
       "contractorTelefono": "04144013973"
     }

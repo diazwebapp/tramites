@@ -9,14 +9,16 @@ let contratoN = 0
 if(!param) return 
 contratoN = parseInt(param)
 
-const {data:contrato} = await supabase.from("contratos").select("*").eq("numero_contrato", contratoN).single()
-const {data:vehiculo}= await supabase.from("vehiculos").select("*").eq("placa", contrato?.placaVehiculo).single()
-const {data:persona} = await supabase.from("personas").select("*").eq("contractorDNI", contrato?.personDNI).single()
+const {data:contrato, error} = await supabase.from("contrato_data").select("*").eq("numero_contrato", contratoN).single()
+const {data:vehiculo}= await supabase.from("vehicle_data").select("*").eq("placa", contrato?.placa_vehiculo).single()
+const {data:persona} = await supabase.from("person_data").select("*").eq("contractor_dni", contrato?.person_dni).single()
+
 
 // convertir fecha inicio del contrato a date
 
-const diasTotales = calcularDiasRestantes(contrato.desde, contrato.hasta);
-
+let diasTotales = 0
+if(!error)
+    diasTotales = calcularDiasRestantes(contrato.desde, contrato.hasta);
 ---
 
 <Layout>
@@ -32,7 +34,7 @@ const diasTotales = calcularDiasRestantes(contrato.desde, contrato.hasta);
                 <li><b>Año de Vehiculo:</b> {vehiculo?.anio}</li>
                 <li><b>Placa:</b> {vehiculo?.placa}</li>
                 <li><b>Serial C:</b> {vehiculo?.carroceria}</li>
-                <li><b>Asegurado:</b> {persona?.contractorNombre}</li>
+                <li><b>Asegurado:</b> {persona?.contractor_nombre}</li>
                 <li><b>Fecha de Vencimiento:</b> {contrato?.hasta}</li>
                 <li><b>Días Restantes:</b> {diasTotales}</li>
             </ul>
