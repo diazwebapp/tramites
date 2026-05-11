@@ -10,8 +10,8 @@ let {contrato,vehiculo,persona} = Astro.props
 !contrato ? contrato = {
     "numero_contrato": 0,
     "numero_recibo": 0,
-    "personDNI": "",
-    "placaVehiculo": "",
+    "person_dni": "",
+    "placa_vehiculo": "",
     "desde": new Date(),
     "hasta": new Date()
 } : contrato
@@ -29,10 +29,10 @@ let {contrato,vehiculo,persona} = Astro.props
       "puestos_tonelaje": ""
 } : vehiculo
 !persona ? persona = {
-    "contractorNombre": "",
+    "contractor_nombre": "",
     "contractor_dni": "",
-    "contractorDreccion": "",
-    "contractorTelefono": ""
+    "contractor_direccion": "",
+    "contractor_telefono": ""
 } : persona
 ---
 <div id="plantilla" >
@@ -115,7 +115,7 @@ let {contrato,vehiculo,persona} = Astro.props
                         <td>
                             <label for="contractor">
                                 <b>Nombres:</b>
-                                <span contenteditable="true" data-placeholder="Introduce los nombres del tomador" class="tomadorNombres" >{persona.contractorNombre}</span>
+                                <span contenteditable="true" data-placeholder="Introduce los nombres del tomador" class="tomadorNombres" >{persona.contractor_nombre}</span>
                             </label>
                         </td> 
                         
@@ -124,12 +124,12 @@ let {contrato,vehiculo,persona} = Astro.props
                         <td>
                             <label for="dirección">
                                 <b>Dirección:</b>
-                                <span contenteditable="true" data-placeholder="Introduce la dirección" >{persona.contractorDreccion}</span>
+                                <span contenteditable="true" data-placeholder="Introduce la dirección" >{persona.contractor_direccion}</span>
                         </td>
                         <td>
                             <label for="phone">
                                 <b>Teléfono:</b>
-                                <span contenteditable="true" data-placeholder="Introduce el teléfono" >{persona.contractorTelefono}</span>
+                                <span contenteditable="true" data-placeholder="Introduce el teléfono" >{persona.contractor_telefono}</span>
                         </td>
                     </tr>
                 </table>            
@@ -149,7 +149,7 @@ let {contrato,vehiculo,persona} = Astro.props
                         <td>
                             <label for="contractor">
                                 <b>Nombres:</b>
-                                <span contenteditable="true" data-placeholder="Introduce los nombres del contratante" >{persona.contractorNombre}</span>
+                                <span contenteditable="true" data-placeholder="Introduce los nombres del contratante" >{persona.contractor_nombre}</span>
                             </label>
                         </td> 
                         
@@ -158,12 +158,12 @@ let {contrato,vehiculo,persona} = Astro.props
                         <td>
                             <label for="dirección">
                                 <b>Dirección:</b>
-                                <span contenteditable="true" data-placeholder="Introduce la dirección" >{persona.contractorDreccion}</span>
+                                <span contenteditable="true" data-placeholder="Introduce la dirección" >{persona.contractor_direccion}</span>
                         </td>
                         <td>
                             <label for="phone">
                                 <b>Teléfono:</b>
-                                <span contenteditable="true" data-placeholder="Introduce el teléfono" >{persona.contractorTelefono}</span>
+                                <span contenteditable="true" data-placeholder="Introduce el teléfono" >{persona.contractor_telefono}</span>
                         </td>
                     </tr>
                 </table>            
@@ -301,7 +301,7 @@ let {contrato,vehiculo,persona} = Astro.props
                 <table style="width: 100%;" class="table-data" >
                     <tr>
                         <td><b>Contratante</b></td>
-                        <td><span>{persona.contractorNombre}</span></td>
+                        <td><span>{persona.contractor_nombre}</span></td>
                     </tr>
                     <tr>
                         <td>
