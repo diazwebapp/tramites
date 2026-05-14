@@ -21,7 +21,7 @@ if(!error)
     diasTotales = calcularDiasRestantes(contrato.desde, contrato.hasta);
 ---
 
-<Layout>
+<Layout cliente={persona?.contractor_nombre} >
     <div class="container-info">
         <div class="header">
             <img width="300px" class="logo"  src="/logo-plantilla.png" alt="logo-empresa">
