@@ -29,7 +29,7 @@ export const POST: APIRoute = async ({ request }) => {
 
     //Generamos el objeto Contrac
     const contract: ContratoData = {
-      person_dni: params.personDNI,
+      contractor_dni: params.personDNI,
       placa_vehiculo: params.placaVehiculo,
       desde: today,
       hasta: oneYearLater

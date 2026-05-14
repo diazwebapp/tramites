@@ -11,7 +11,7 @@ contratoN = parseInt(param)
 
 const {data:contrato, error} = await supabase.from("contrato_data").select("*").eq("numero_contrato", contratoN).single()
 const {data:vehiculo}= await supabase.from("vehicle_data").select("*").eq("placa", contrato?.placa_vehiculo).single()
-const {data:persona} = await supabase.from("person_data").select("*").eq("contractor_dni", contrato?.person_dni).single()
+const {data:persona} = await supabase.from("person_data").select("*").eq("contractor_dni", contrato?.contractor_dni).single()
 
 
 // convertir fecha inicio del contrato a date

@@ -4,7 +4,7 @@ export interface ContratoData {
   hasta: Date
   numero_recibo?:number
   placa_vehiculo: string
-  person_dni:string
+  contractor_dni:string
 }
 
 export interface PersonData{
